@@ -1,0 +1,20 @@
+groups: 
+- name: example
+  rules:
+  - alert: Connection lost
+    expr: probe_http_status_code{job="blackbox"} != 200
+    for: 5s
+    labels:
+      severity: critical
+    annotations:
+      summary: "Connection lost"
+      description: "Connection lost"
+  
+  - alert: Connection is long
+    expr: sum (probe_http_duration_seconds{job="blackbox"}) > 5
+    for: 5s
+    labels:
+      severity: critical
+    annotations:
+      summary: "CConnection is long"
+      description: "Connection is long"
